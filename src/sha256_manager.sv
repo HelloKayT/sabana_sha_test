@@ -1,4 +1,4 @@
-import sha256_pkg::*;
+`include "sha256_defs.vh"
 module sha256_manager (
      input  logic   clk
     ,input  logic   rst
