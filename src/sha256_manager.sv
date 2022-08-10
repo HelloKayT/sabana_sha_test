@@ -1,5 +1,14 @@
-import sha256_pkg::*;
-module sha256_manager (
+module sha256_manager #(
+    parameter  SHA_IF_DATA_W = 256,
+    parameter  SHA_IF_BITS_W = $clog2(256),
+    parameter  SHA_IF_BYTES = 256/8,
+    parameter  SHA_IF_BYTES_W = $clog2(SHA_IF_BYTES),
+    parameter  SHA256_DIGEST_W = 256,
+    parameter  SHA256_BLOCK_W = 512,
+    parameter  SHA256_BLOCK_BYTES = 512/8,
+    parameter  SHA256_BLOCK_BYTES_W = $clog2(SHA256_BLOCK_BYTES)
+)
+(
      input  logic   clk
     ,input  logic   rst
     
