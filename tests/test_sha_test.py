@@ -16,13 +16,13 @@ from pathlib import Path
 import numpy as np
 from sabana import Instance, Program
 
-def create_program(file):
+def create_program(inp):
     in_len = 16
     out_len = 8
     dtype = np.int32
     start = np.ones([1], dtype)
     finish = np.array([14], dtype)
-    a = np.fromfile(file, dtype=np.uint8)
+    a = inp
     a_len = np.array([in_len], dtype=dtype)
     y_len = np.array([out_len], dtype=dtype)
     program = Program()
@@ -41,13 +41,15 @@ def create_program(file):
 
 def test_main():
     file = Path(__file__).resolve().parent.joinpath("single_block.txt.padded")
-    prog = create_program(file)
+    inp = np.fromfile(file, dtype=np.uint8)
+    prog = create_program(inp)
     image_file = Path(__file__).resolve().parent.parent.joinpath("sabana.json")
     inst = Instance(image_file=image_file, verbose=True)
     inst.up()
     responses = inst.execute(prog)
     inst.down()
-    print(responses[0])
+    print("in:", inp)
+    print("out:", responses[0])
 
 
 if __name__ == "__main__":
